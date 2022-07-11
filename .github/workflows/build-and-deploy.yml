@@ -1,0 +1,52 @@
+name: compile and release slides
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - 'README.md'
+      - 'CHANGELOG.md'
+      - 'LICENSE'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build latex
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: presentation.tex
+      - name: Prepare assets
+        run: |
+          mkdir -p assets
+          cp ./presentation.pdf ./assets/
+      - name: Push assets/
+        uses: stefanzweifel/git-auto-commit-action@v4.1.2
+        with:
+          file_pattern: assets/*
+          commit_message: "chore(ci): Add compiled pdf into assets [skip ci]"
+          branch: ${{ github.head_ref }}
+      - name: semver
+        uses: anitvam/conventionalcommit-semantic-releasing@v0.3.6
+        with:
+          token: ${{ secrets.RELEASE_TOKEN }}
+
+  delete-assets:
+    needs: compile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Delete assets
+        run: |
+          git pull
+          rm -frd assets
+      - name: Remove remote assets/
+        uses: stefanzweifel/git-auto-commit-action@v4.1.2
+        with:
+          commit_message: "chore(ci): Remove compiled pdf from assets [skip ci]"
+          branch: ${{ github.head_ref }}
