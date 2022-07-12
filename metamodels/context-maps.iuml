@@ -1,4 +1,5 @@
-@startuml Context Mapping
+@startuml
+'
 !procedure subdomain($name, $alias)
 rectangle "$name Subdomain" as $alias
 !endprocedure
