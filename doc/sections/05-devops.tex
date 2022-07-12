@@ -1,0 +1,51 @@
+\section{Devops}
+\frame{\tableofcontents[currentsection]}
+
+%-------------------------------------------------
+\subsection{DVCS Strategy}
+\begin{frame}
+    \frametitle{DVCS Strategy}
+    Per gestire i repository sono state effettuate le seguenti scelte:
+    \begin{itemize}
+        \item Definizione di una \textbf{GitHub Organization} per contenere tutti i progetti.
+        \item Utilizzo di \textbf{Git Flow Workflow} per avere una linea di sviluppo chiara e ben definita.
+        \item Utilizzo dei \textbf{Conventional Commit} per poter generare in modo automatico i nuovi \textbf{tag} e le relative \textbf{release}
+        \item Configurazione di un \textbf{Commit Linter} per assicurare che i commit siano correttamente formattati
+    \end{itemize}
+\end{frame}
+%------------------------------------------------
+
+%-------------------------------------------------
+\subsection{Continuous Integration}
+\begin{frame}
+    \frametitle{Continuous Integration}
+    All'interno dei repository dell'organizzazione sono stati configurati dei workflow che, tramite delle GitHub Actions,
+    effettuano i seguenti controlli:
+    \begin{itemize}
+        \item \textbf{Code Quality Control}: tramite i plugin \texttt{ktlint} e \texttt{ESLint}.
+        \item \textbf{Testing}: utilizzando i plugin \texttt{kotest} e \texttt{mocha}.
+        \item \textbf{Reporting della coverage}: con i plugin \texttt{jacoco} e \texttt{istanbul}.
+    \end{itemize}
+
+    \bigskip
+
+    Inoltre è stato configurato il bot \texttt{renovate} all'interno dei repository per effettuare \textbf{Automatic Dependency Update}.
+
+\end{frame}
+
+%------------------------------------------------
+
+%-------------------------------------------------
+\subsection{Continuous Delivery}
+\begin{frame}
+    \frametitle{Continuous Delivery}
+    Sono stati inoltre configurati dei workflow che consentono di effettuare:
+    \begin{itemize}
+        \item \textbf{Semantic Versioning and Releasing}: GitHub Action che consente di calcolare automaticamente il tag della release ed effettuarla tramite l'analisi dei messaggi di commit.
+        \item \textbf{Containerization}: L'applicazione viene costruita utilizzando un Dockerfile e pubblicata all'interno dei GitHub Packages.
+    \end{itemize}
+\end{frame}
+
+
+%------------------------------------------------
+
