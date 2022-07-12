@@ -16,15 +16,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Generate PNG Diagrams
-        uses: holowinski/plantuml-github-action@main
-        with:
-          args: -v -tpng uml/*.puml -o ../img/
-      - name: Push Local Changes
-        uses: stefanzweifel/git-auto-commit-action@v4.1.2
-        with:
-          commit_message: "docs(uml): generate PNG files for PlantUML diagrams"
-          branch: ${{ github.head_ref }}
       - name: Build latex
         uses: xu-cheng/latex-action@v2
         with:
