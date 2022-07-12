@@ -19,11 +19,12 @@ jobs:
       - name: Build latex
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: ./doc/presentation.tex
+          working_directory: doc
+          root_file: presentation.tex
       - name: Prepare assets
         run: |
           mkdir -p assets
-          cp ./presentation.pdf ./assets/
+          cp ./doc/presentation.pdf ./assets/
       - name: Push assets/
         uses: stefanzweifel/git-auto-commit-action@v4.1.2
         with:
