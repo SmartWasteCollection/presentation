@@ -20,7 +20,6 @@ jobs:
         uses: holowinski/plantuml-github-action@main
         with:
           args: -v -tpng uml/*.puml -o ../img/
-          shell: bash
       - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v4.1.2
         with:
