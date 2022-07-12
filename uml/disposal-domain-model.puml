@@ -1,0 +1,76 @@
+@startuml
+!include ../../../metamodels/domain-models.iuml
+
+aggregate "Collection Point Aggregate" {
+
+    class(CollectionPoint, Entity - Aggregate Root) {
+        + id: string
+        + position: Position
+    }
+
+    class(Position, ValueObject) {
+        + latitude: long
+        + longitude: long
+    }
+
+    association(CollectionPoint, Position)
+}
+
+aggregate "Dumpster Aggregate" {
+    class(Dumpster, Entity - Aggregate Root) {
+        + TIMEOUT: long
+        + id: string
+        + collectionPointId: string
+        + dumpsterType: TypeOfDumpster
+        + isOpen: boolean
+        + occupiedVolume: Volume
+        + isWorking: boolean
+        + isAvailable(): boolean
+    }
+
+    class(Volume, ValueObject) {
+        + value: double
+        + getOccupiedPercentage(): double
+    }
+
+    class(TypeOfDumpster, ValueObject) {
+        + size: Size
+        + typeOfWaste: TypeOfWaste
+    }
+
+    class(TypeOfOrdinaryWaste, ValueObject) {
+        + wasteName: OrdinaryWasteName
+        + color: Color
+    }
+
+    class(Size, ValueObject) {
+        + dimension: Dimension
+        + capacity: double
+    }
+
+    class(Dimension, Enum) {
+        SMALL, LARGE
+    }
+
+    class(Color, Enum) {
+        GREY, YELLOW, GREEN,
+        BLUE, BROWN
+    }
+
+    class(OrdinaryWasteName, Enum) {
+        UNSORTED, PLASTICS/ALUMINIUM,
+        ORGANIC, GLASS, PAPER
+    }
+
+    association(Dumpster, TypeOfDumpster, left)
+    association(Dumpster, Volume)
+    association(TypeOfDumpster, Size)
+    association(Size, Dimension)
+    association(TypeOfDumpster, TypeOfOrdinaryWaste, left)
+    association(TypeOfOrdinaryWaste, OrdinaryWasteName)
+    association(TypeOfOrdinaryWaste, Color)
+}
+
+association(Dumpster, CollectionPoint, right)
+
+@enduml

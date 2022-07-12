@@ -1,0 +1,43 @@
+@startuml
+!include ../../metamodels/architecture.iuml
+left to right direction
+
+subdomain "Collection Subdomain" {
+
+    service "Mission Microservice" as mission {
+        functionality "Ordinary Mission Generation" as ordinary
+        functionality "Extraordinary Mission Generation" as extra
+        functionality "Mission Management" as mission_management
+    }
+
+    service "Truck Microservice" as truck {
+        functionality "Trucks Management" as truck_management
+    }
+
+    service "Booking Microservice" as booking {
+        functionality "Requests Management" as requests
+    }
+
+    thing "Physical Truck" as t_thing
+
+    twin "Truck Digital Twin" as t_twin
+
+    database "Requests Database" as r_db
+
+    database "Missions Database" as m_db
+    twin "Mission Digital Twin" as m_twin
+
+    interact(mission, m_db, up)
+    interact(mission, m_twin, up)
+    interact(mission_management, truck)
+    interact(booking, r_db)
+    interact(extra, booking)
+    bi_interact(t_thing, t_twin)
+    interact(t_twin, mission_management, up)
+    interact(truck_management, t_twin)
+    interact(extra, mission_management, left)
+    interact(ordinary, mission_management, left)
+
+}
+
+@enduml

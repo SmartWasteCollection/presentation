@@ -1,0 +1,55 @@
+@startuml
+!include ../../../metamodels/domain-models.iuml
+
+aggregate "Mission Aggregate" {
+
+    class(Mission, Entity - Aggregate Root) {
+        + id: string
+        + truckId: string
+        + date: date
+        + typeOfWaste: TypeOfWaste
+        + typeOfMission: TypeOfMission
+        + missionSteps: List<MissionStep>
+        + isCompleted(): boolean
+    }
+
+    class(MissionStep, Entity) {
+        + stepId: string
+        + isCompleted: boolean
+    }
+
+    class(TypeOfWaste, ValueObject) {
+        + wasteName: WasteName
+    }
+
+    class(OrdinaryWasteName, Enum) {
+        UNSORTED, PLASTICS/ALUMINIUM,
+        ORGANIC, GLASS, PAPER,
+    }
+
+    class(ExtraordinaryWasteName, Enum) {
+        TWIGS, WASTE_OIL, IRON,
+        ELECTRONICS, CLOTHES, OTHER
+    }
+
+    class(TypeOfMission, Enum) {
+        ORDINARY, EXTRAORDINARY
+    }
+
+    association(Mission, TypeOfWaste)
+    association(Mission, TypeOfMission)
+    association(TypeOfWaste, OrdinaryWasteName)
+    association(TypeOfWaste, ExtraordinaryWasteName)
+    association(Mission, MissionStep, left)
+
+}
+
+class(MissionManagerService, Service) {
+    + computeOrdinaryMission(dumpsterId: string): Mission
+    + computeExtraordinaryMission(typeOfWaste: TypeOfWaste): Mission
+}
+
+association(MissionManagerService, Mission, up)
+
+
+@enduml
