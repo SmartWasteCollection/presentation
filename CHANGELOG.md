@@ -1,3 +1,10 @@
+## [0.1.2](https://github.com/SmartWasteCollection/presentation/compare/v0.1.1...v0.1.2) (2022-07-13)
+
+
+### Bug Fixes
+
+* domain analysis slides order ([848c7f7](https://github.com/SmartWasteCollection/presentation/commit/848c7f78d59545c7203fc94d5fc73dde20f4809f))
+
 ## [0.1.1](https://github.com/SmartWasteCollection/presentation/compare/v0.1.0...v0.1.1) (2022-07-12)
 
 
