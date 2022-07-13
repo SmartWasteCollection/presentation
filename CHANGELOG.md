@@ -1,3 +1,10 @@
+## [0.1.3](https://github.com/SmartWasteCollection/presentation/compare/v0.1.2...v0.1.3) (2022-07-13)
+
+
+### Bug Fixes
+
+* fix typo ([4802593](https://github.com/SmartWasteCollection/presentation/commit/480259306001649a1f3f3e658b2810fdeca3d965))
+
 ## [0.1.2](https://github.com/SmartWasteCollection/presentation/compare/v0.1.1...v0.1.2) (2022-07-13)
 
 
